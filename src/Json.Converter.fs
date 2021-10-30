@@ -161,7 +161,8 @@ module Convert =
         // Unsigned integers
         | JNumber value, TypeInfo.UInt16 -> unbox (uint16 value)
         | JString value, TypeInfo.UInt16 -> unbox (uint16 value)
-        | JNumber value, TypeInfo.UInt32 -> unbox (uint32 value)
+        // TODO: Should be fixed
+        //| JNumber value, TypeInfo.UInt32 -> unbox (uint32 value)
         | JString value, TypeInfo.UInt32 -> unbox (uint32 value)
         | JNumber value, TypeInfo.UInt64 -> unbox (uint64 value)
         | JString value, TypeInfo.UInt64 -> unbox (uint64 value)
