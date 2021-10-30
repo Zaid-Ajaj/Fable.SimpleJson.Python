@@ -192,10 +192,7 @@ module Convert =
         | JString value, TypeInfo.Array getElemType ->
             let elemType = getElemType()
             match elemType with
-            | TypeInfo.Byte ->
-                if insideWorker || insideBrowser
-                then unbox (Convert.FromBase64String value)
-                else unbox (Node.bytesFromBase64 value)
+            | TypeInfo.Byte -> unbox(Node.bytesFromBase64 value)
             | otherType -> failwithf "Cannot convert arbitrary string '%s' to %A" value otherType
 
         // null values for strings are just the null string

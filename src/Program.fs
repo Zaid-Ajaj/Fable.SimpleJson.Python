@@ -15,10 +15,6 @@ let testCase (name: string) (f: unit -> unit) =
 
 type Car = { id: int; model: string }
 
-//TODO: file an issue
-//let value = 2.0
-//let converted = uint32 value
-
 testCase "Parsing works" <| fun () ->
     let inputJson = "{ \"id\": 42, \"model\": \"BMW\" }"
     let car = Json.parseNativeAs<Car>(inputJson)
