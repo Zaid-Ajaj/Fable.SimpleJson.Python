@@ -16,7 +16,7 @@
         <Compile Include="TypeCheck.fs" />
         <Compile Include="TypeInfo.fs" />
         <Compile Include="TypeInfo.Converter.fs" />
-        <Compile Include="Json.fs" />
+        <Compile Include="JsonType.fs" />
         <Compile Include="SimpleJson.fs" />
         <Compile Include="Json.Converter.fs" />
         <Compile Include="Program.fs" />

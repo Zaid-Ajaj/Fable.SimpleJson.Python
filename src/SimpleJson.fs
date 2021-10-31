@@ -39,6 +39,8 @@ module SimpleJson =
             |> String.concat ","
             |> sprintf "{%s}"
 
+    [<Emit "$0.keys()">]
+    let objectKeys (x: obj) : string seq = nativeOnly
     let rec internal parseNative' (x: obj) =
         match x with
         | TypeCheck.NativeString str -> JString str
@@ -47,7 +49,7 @@ module SimpleJson =
         | TypeCheck.Null _ -> JNull
         | TypeCheck.NativeArray arr -> JArray (List.ofArray (Array.map parseNative' arr))
         | TypeCheck.NativeObject object ->
-            [ for key in JS.Constructors.Object.keys object -> key, parseNative' (InteropUtil.get<obj> key object)  ]
+            [ for key in objectKeys object -> key, parseNative' (InteropUtil.get<obj> key object)  ]
             |> Map.ofList
             |> JObject
         | _ -> JNull

@@ -5,13 +5,8 @@ open Fable.SimpleJson.Python
 
 // Poor man's testing "library"
 let testCase (name: string) (f: unit -> unit) =
-    try
-        f()
-        Console.WriteLine($"✅ {name}")
-    with
-    | error ->
-        Console.WriteLine($"❌ {name}")
-        Console.WriteLine(error)
+    f()
+    Console.WriteLine($"✅ {name}")
 
 type Car = { id: int; model: string }
 

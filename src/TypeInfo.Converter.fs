@@ -185,23 +185,24 @@ module Converter =
     and private typeInfoCache = Dictionary<Type,Fable.SimpleJson.Python.TypeInfo>()
 
     and createTypeInfo (resolvedType: Type) : Fable.SimpleJson.Python.TypeInfo =
-        match typeInfoCache.TryGetValue resolvedType with
-        | true, ti -> ti
-        | false, _ ->
-            let ti = _createTypeInfo resolvedType
-            // see https://github.com/fable-compiler/Fable/issues/1871
-            // Type equality doesn't work for anonymous records - all anon records are considered equal.
-            // For anonymous records, the name is the empty string.
-            let notAnonymousRecord =
-                not (String.IsNullOrEmpty resolvedType.FullName)
-                && not (resolvedType.FullName.EndsWith("`1[]"))
-                && not (resolvedType.FullName.EndsWith("`2[]"))
-
-            if notAnonymousRecord then
-                typeInfoCache.[resolvedType] <- ti
-                ti
-            else
-                ti
+        _createTypeInfo resolvedType
+        //match typeInfoCache.TryGetValue resolvedType with
+        //| true, ti -> ti
+        //| false, _ ->
+        //    let ti = _createTypeInfo resolvedType
+        //    // see https://github.com/fable-compiler/Fable/issues/1871
+        //    // Type equality doesn't work for anonymous records - all anon records are considered equal.
+        //    // For anonymous records, the name is the empty string.
+        //    let notAnonymousRecord =
+        //        not (String.IsNullOrEmpty resolvedType.FullName)
+        //        && not (resolvedType.FullName.EndsWith("`1[]"))
+        //        && not (resolvedType.FullName.EndsWith("`2[]"))
+//
+        //    if notAnonymousRecord then
+        //        typeInfoCache.Add(resolvedType, ti)
+        //        ti
+        //    else
+        //        ti
 
     type Fable.SimpleJson.Python.TypeInfo with
         static member inline createFrom<'t> () : Fable.SimpleJson.Python.TypeInfo =

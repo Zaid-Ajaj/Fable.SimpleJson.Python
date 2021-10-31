@@ -11,7 +11,7 @@ module TypeCheck =
     [<Emit("isinstance($0, bool)")>]
     let typeofBool (x: obj) : bool = nativeOnly
 
-    [<Emit("isinstance($0, int) OR isinstance($0, float)")>]
+    [<Emit("isinstance($0, int) or isinstance($0, float)")>]
     let typeofNumber (x: obj) : bool = nativeOnly
 
     [<Emit("isinstance($0, dict)")>]
