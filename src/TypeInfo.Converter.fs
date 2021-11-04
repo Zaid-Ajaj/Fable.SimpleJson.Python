@@ -44,12 +44,12 @@ module Converter =
         else None
 
     let (|SetType|_|) (t: Type) =
-        if t.FullName.StartsWith "Microsoft.FSharp.Collections.FSharpSet`1"
+        if t.FullName.TrimStart('$').StartsWith "Microsoft.FSharp.Collections.FSharpSet`1"
         then t.GetGenericArguments().[0] |> Some
         else None
 
     let (|Nullable|_|) (t: Type) =
-        if t.FullName.StartsWith "System.Nullable`1"
+        if t.FullName.TrimStart('$').StartsWith "System.Nullable`1"
         then t.GetGenericArguments().[0] |> Some
         else None
 
@@ -65,14 +65,14 @@ module Converter =
         else None
 
     let (|MapType|_|) (t: Type) =
-        if (t.FullName.StartsWith "Microsoft.FSharp.Collections.FSharpMap`2")
+        if (t.FullName.TrimStart('$').StartsWith "Microsoft.FSharp.Collections.FSharpMap`2")
         then
             let genArgs = t.GetGenericArguments()
             Some (genArgs.[0], genArgs.[1])
         else None
 
     let (|ListType|_|) (t: Type) =
-        if (t.FullName.StartsWith "Microsoft.FSharp.Collections.FSharpList`1")
+        if (t.FullName.TrimStart('$').StartsWith "Microsoft.FSharp.Collections.FSharpList`1")
         then t.GetGenericArguments().[0] |> Some
         else None
 
@@ -94,7 +94,7 @@ module Converter =
         else None
 
     let (|OptionType|_|) (t:Type) =
-        if (t.FullName.StartsWith "Microsoft.FSharp.Core.FSharpOption`1")
+        if (t.FullName.TrimStart('$').StartsWith "Microsoft.FSharp.Core.FSharpOption`1")
         then t.GetGenericArguments().[0] |> Some
         else None
 
@@ -104,12 +104,12 @@ module Converter =
         else None
 
     let (|SeqType|_|) (t: Type) =
-        if t.FullName.StartsWith "System.Collections.Generic.IEnumerable`1"
+        if t.FullName.TrimStart('$').StartsWith "System.Collections.Generic.IEnumerable`1"
         then  t.GetGenericArguments().[0] |> Some
         else None
 
     let (|DictionaryType|_|) (t: Type) =
-        if t.FullName.StartsWith "System.Collections.Generic.Dictionary"
+        if t.FullName.TrimStart('$').StartsWith "System.Collections.Generic.Dictionary"
         then
           let genArgs = t.GetGenericArguments()
           Some (genArgs.[0], genArgs.[1])
@@ -117,22 +117,22 @@ module Converter =
           None
 
     let (|ResizeArrayType|_|) (t: Type) =
-        if t.FullName.StartsWith "System.Collections.Generic.List"
+        if t.FullName.TrimStart('$').StartsWith "System.Collections.Generic.List"
         then t.GetGenericArguments().[0] |> Some
         else None
 
     let (|HashSetType|_|) (t: Type) =
-        if t.FullName.StartsWith "System.Collections.Generic.HashSet"
+        if t.FullName.TrimStart('$').StartsWith "System.Collections.Generic.HashSet"
         then t.GetGenericArguments().[0] |> Some
         else None
 
     let (|AsyncType|_|) (t:Type) =
-        if t.FullName.StartsWith "Microsoft.FSharp.Control.FSharpAsync`1"
+        if t.FullName.TrimStart('$').StartsWith "Microsoft.FSharp.Control.FSharpAsync`1"
         then  t.GetGenericArguments().[0] |> Some
         else None
 
     let (|PromiseType|_|) (t:Type) =
-        if t.FullName.StartsWith "Fable.Core.JS.Promise`1"
+        if t.FullName.TrimStart('$').StartsWith "Fable.Core.JS.Promise`1"
         then t.GetGenericArguments().[0] |> Some
         else None
 
@@ -148,14 +148,14 @@ module Converter =
         | PrimitiveType typeInfo -> typeInfo
         | FuncType (types) -> TypeInfo.Func <| lazyToDelayed (lazy (Array.map createTypeInfo types))
         | RecordType fields ->
-            let l = lazy (
+            TypeInfo.Record (fun () ->
                 let fields =
                     [| for (field, fieldName, fieldType) in fields ->
                         { PropertyInfo = field
                           FieldName = fieldName;
                           FieldType = createTypeInfo fieldType } |]
-                fields, resolvedType)
-            TypeInfo.Record (lazyToDelayed l)
+                fields, resolvedType
+            )
 
         | UnionType cases ->
             let l = lazy (
@@ -166,13 +166,13 @@ module Converter =
             TypeInfo.Union (lazyToDelayed l)
 
         | EnumType elemType -> TypeInfo.Enum (lazyToDelayed <| lazy (createTypeInfo elemType, resolvedType))
-        | ListType elemType -> TypeInfo.List (lazyToDelayed <| lazy (createTypeInfo elemType))
+        | ListType elemType -> TypeInfo.List (fun () -> createTypeInfo elemType)
         | ResizeArrayType elemType -> TypeInfo.ResizeArray (lazyToDelayed <| lazy (createTypeInfo elemType))
         | HashSetType elemType -> TypeInfo.HashSet (lazyToDelayed <| lazy (createTypeInfo elemType))
         | ArrayType elemType -> TypeInfo.Array (lazyToDelayed <| lazy (createTypeInfo elemType))
         // Checking for tuples has to happen after checking for arrays
         | TupleType types -> TypeInfo.Tuple (lazyToDelayed <| lazy (Array.map createTypeInfo types))
-        | OptionType elemType -> TypeInfo.Option (lazyToDelayed <| lazy (createTypeInfo elemType))
+        | OptionType elemType -> TypeInfo.Option (fun () -> createTypeInfo elemType)
         | Nullable elemType -> TypeInfo.Option (lazyToDelayed <| lazy (createTypeInfo elemType))
         | SetType elemType -> TypeInfo.Set (lazyToDelayed <| lazy (createTypeInfo elemType))
         | MapType (keyType, valueType) -> TypeInfo.Map (lazyToDelayed <| lazy (createTypeInfo keyType, createTypeInfo valueType))

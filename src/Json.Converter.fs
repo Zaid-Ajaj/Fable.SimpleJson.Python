@@ -253,7 +253,7 @@ module Convert =
                 |> Array.tryFind (fun case -> case.CaseName = caseName)
                 |> function
                     | Some ({ CaseName = caseName; Info = caseInfo; CaseTypes = [| caseType |] }) ->
-                        FSharpValue.MakeUnion(caseInfo, [| unbox fromJsonAs json caseType |])
+                        FSharpValue.MakeUnion(caseInfo, [| unbox (fromJsonAs json caseType) |])
                         |> unbox
                     | _ ->
                         let caseNames = Array.map (fun case -> sprintf " '%s' " case.CaseName) cases
@@ -311,10 +311,10 @@ module Convert =
         | jsonValue, TypeInfo.Option optionalTypeDelayed when jsonValue <> JNull ->
             let optionalType = optionalTypeDelayed()
             let parsedOptional = unbox (fromJsonAs jsonValue optionalType)
-            unbox Some parsedOptional
+            unbox (Some parsedOptional)
         | JString value, TypeInfo.Guid _ -> unbox (System.Guid.Parse(value))
         // int64 as a number, convert it to int then to in64
-        | JNumber value , TypeInfo.Long _ -> unbox int64 (int value)
+        | JNumber value , TypeInfo.Long _ -> unbox (int64 (int value))
         // int64 as the internal representation from Long.js
         // then reconstruct it from the high/low (two integers) components
         | JObject dict, TypeInfo.Long _ ->
