@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Tools.fs" />
+    <Compile Include="Files.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fake.Core.Environment" Version="5.20.4" />
+    <PackageReference Include="Fake.Core.Target" Version="5.20.4" />
   </ItemGroup>
 
 </Project>

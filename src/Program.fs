@@ -124,21 +124,18 @@ testCase "Deserializing base64 strings to byte[]" <| fun () ->
     let output = Json.parseNativeAs<GenericRecord<byte[]>> inputJson
     if output.value <> [|72uy; 101uy; 108uy; 108uy; 111uy|] then failwith "the byte[] should be correct"
 
-//// ImportError: cannot import name 'anon_record_type' from 'fable_modules.fable_library.reflection'
-//testCase "Deserializing anonymous records" <| fun () ->
-//    let inputJson = "{ \"content\": [1,2,3] }"
-//    let deserialized = Json.parseNativeAs<{| content: int list |}> inputJson
-//    let sum = deserialized.content |> List.sum
-//    if sum <> 6 then failwith "Sum should be 6"
+testCase "Deserializing anonymous records" <| fun () ->
+    let inputJson = "{ \"content\": [1,2,3] }"
+    let deserialized = Json.parseNativeAs<{| content: int list |}> inputJson
+    let sum = deserialized.content |> List.sum
+    if sum <> 6 then failwith "Sum should be 6"
 
-//// ImportError: cannot import name 'equals' from 'fable_modules.fable_library.big_int'
-//testCase "bigint equality works" <| fun () ->
-//    let values = [1I; 2I; 3I]
-//    let sum = List.sum values
-//    if sum <> 6I then failwith "Sum of bigints should be 6"
+testCase "bigint equality works" <| fun () ->
+    let values = [1I; 2I; 3I]
+    let sum = List.sum values
+    if sum <> 6I then failwith "Sum of bigints should be 6"
 
-//// ImportError: cannot import name 'equals' from 'fable_modules.fable_library.decimal'
-// testCase "decimal equality works" <| fun () ->
-//     let values = [1m; 2m; 3m]
-//     let sum = List.sum values
-//     if sum <> 6m then failwith "Sum of decimals should be 6"
+testCase "decimal equality works" <| fun () ->
+    let values = [1m; 2m; 3m]
+    let sum = List.sum values
+    if sum <> 6m then failwith "Sum of decimals should be 6"
