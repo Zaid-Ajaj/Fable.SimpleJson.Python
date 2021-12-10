@@ -1,7 +1,6 @@
 namespace Fable.SimpleJson.Python
 
 open Fable.Core
-open Fable.Core.JsInterop
 
 module TypeCheck =
 

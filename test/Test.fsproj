@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Authors>Zaid Ajaj</Authors>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="*.fsproj; *.fs" Exclude="Program.fs" PackagePath="fable\" />
+  </ItemGroup>
+    <ItemGroup>
+    <ProjectReference Include="../src/Fable.SimpleJson.Python.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.Python" Version="0.16.0" />
+  </ItemGroup>
+</Project>
