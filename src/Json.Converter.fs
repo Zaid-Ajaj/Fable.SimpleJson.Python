@@ -1,12 +1,13 @@
 namespace Fable.SimpleJson.Python
 
 open System
-open Fable.Core
-open FSharp.Reflection
 open System.Numerics
 open System.Collections
 open System.Collections.Generic
-open Fable.Core.JsInterop
+
+open Fable.Core
+open Fable.Python.Json
+open FSharp.Reflection
 
 module Convert =
     let insideBrowser = false
@@ -203,13 +204,13 @@ module Convert =
         | JString value, TypeInfo.SByte -> unbox (sbyte value)
         // BigInt as string -> parse it
         | JString value, TypeInfo.BigInt -> unbox (BigInteger.Parse value)
-        | JNumber value, TypeInfo.BigInt -> unbox (bigint (JS.Math.floor(value)))
+        | JNumber value, TypeInfo.BigInt -> unbox (bigint (Math.Floor(value)))
         // parse formatted date time
         | JString value, TypeInfo.DateTime -> unbox (DateTime.Parse(value))
         // parse formatted date time offset
         | JString value, TypeInfo.DateTimeOffset -> unbox (DateTimeOffset.Parse(value))
         | JNumber value, TypeInfo.DateTimeOffset ->
-            let seconds = int64 (JS.Math.floor(value))
+            let seconds = int64 (Math.Floor(value))
             unbox (DateTimeOffset.FromUnixTimeSeconds seconds)
 
         // deserialize union from objects
@@ -300,8 +301,8 @@ module Convert =
                         failwithf "Union of records of type '%s' cannot be deserialized with the value of the discriminator key is not a string to match against a specific union case" unionType.Name
             | otherwise ->
                 // TODO!!! Better error messages here
-                let unexpectedJson = JS.JSON.stringify otherwise
-                let expectedType = JS.JSON.stringify cases
+                let unexpectedJson = json.dumps otherwise
+                let expectedType = json.dumps cases
                 failwithf "Expected JSON:\n%s\nto match the type\n%s" unexpectedJson expectedType
         | JNull, TypeInfo.Option _ -> unbox None
         | jsonValue, TypeInfo.Option optionalTypeDelayed when jsonValue <> JNull ->
