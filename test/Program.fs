@@ -5,9 +5,9 @@ open Fable.SimpleJson.Python
 
 // Poor man's testing "library"
 let testCase (name: string) (f: unit -> unit) =
-    Console.WriteLine($"⏳ {name}")
+    Console.WriteLine($"Running '{name}'");
     f()
-    Console.WriteLine($"✔  {name}")
+    Console.WriteLine($"Success  '{name}'")
 
 type Car = {
     id: int;

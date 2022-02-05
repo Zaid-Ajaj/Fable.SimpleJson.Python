@@ -8,7 +8,7 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;json;parser;python</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -24,6 +24,6 @@
     <Content Include="*.fsproj; *.fs" Exclude="Program.fs" PackagePath="fable\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Python" Version="0.16.0" />
+    <PackageReference Include="Fable.Python" Version="0.17.0" />
   </ItemGroup>
 </Project>

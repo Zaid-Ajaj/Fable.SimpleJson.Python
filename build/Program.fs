@@ -5,11 +5,16 @@ open Fake.IO
 open Fake.Core
 open System.Xml
 
+module List = 
+    let exec xs = List.iter (fun task -> task()) xs
+
+
 let path xs = Path.Combine(Array.ofList xs)
 
 let solutionRoot = Files.findParent __SOURCE_DIRECTORY__ "README.md";
 
 let src = path [ solutionRoot; "src" ]
+let tests = path [ solutionRoot; "test"  ]
 
 let dotnet args dir msg =
     if Shell.Exec(Tools.dotnet, args, dir) <> 0
@@ -18,39 +23,6 @@ let dotnet args dir msg =
 let python args dir msg =
     if Shell.Exec("python", args, dir) <> 0
     then failwith msg
-
-/// <summary>
-/// Changes the project in src from Exe to Library
-/// and removes the included Program.fs entry point. 
-/// This is applied to the project before publishing.
-/// </summary>
-let turnIntoLibrary() =     
-    let projectFile = path [ src; "Fable.SimpleJson.Python.fsproj" ]
-    let content = File.ReadAllText projectFile
-    let project = new XmlDocument()
-    project.LoadXml content
-    let outputType = project.SelectSingleNode "descendant::OutputType"
-    outputType.InnerText <- "Library"
-    let program = project.SelectSingleNode "descendant::Compile[@Include='Program.fs']"
-    program.ParentNode.RemoveChild(program) |> ignore
-    project.Save(projectFile)
-
-/// <summary>
-/// Convert back to exe after publishing as  a library
-/// </summary>
-let turnBackIntoExe() =     
-    let projectFile = path [ src; "Fable.SimpleJson.Python.fsproj" ]
-    let content = File.ReadAllText projectFile
-    let project = new XmlDocument()
-    project.LoadXml content
-    let outputType = project.SelectSingleNode "descendant::OutputType"
-    outputType.InnerText <- "Exe"
-    let compileElements = project.SelectNodes "descendant::Compile"
-    let compileParent = compileElements.[0].ParentNode
-    let program = project.CreateElement("Compile")
-    program.SetAttribute("Include", "Program.fs")
-    compileParent.AppendChild(program) |> ignore
-    project.Save(projectFile)
 
 let publish() =
     Shell.deleteDir (path [ src; "bin" ])
@@ -70,16 +42,35 @@ let publish() =
 
     dotnet (sprintf "nuget push %s -s nuget.org -k %s" nugetPath nugetKey) src "Pushing the library to nuget failed"
 
+let cleanDirectories() = Shell.deleteDirs [
+    path [ src; "obj" ]
+    path [ src; "bin" ]
+    path [ src; "fable_modules" ]
+    path [ src; "__pycache__" ]
+    path [ tests; "src" ]
+    path [ tests; "fable_modules" ]
+    path [ tests; "__pycache__" ]
+    path [ tests; "bin" ]
+    path [ tests; "obj" ]
+]
+
+let cleanPythonFiles() = 
+    let srcPythonFiles = System.IO.Directory.GetFiles(src, "*.py")
+    let testPythonFiles = System.IO.Directory.GetFiles(tests, "*.py")
+    Array.iter Shell.rm srcPythonFiles
+    Array.iter Shell.rm testPythonFiles
+
+let clean() = List.exec [cleanDirectories; cleanPythonFiles]
+
+let test() = 
+    dotnet "fable-py" tests "Compiling the tests project to Python failed"
+    python "program.py" tests "Running the tests failed"
+
 [<EntryPoint>]
 let main argv =
     match argv with
-    | [| "publish" |] -> 
-        turnIntoLibrary()
-        publish()
-        turnBackIntoExe()
-    
-    // for testing
-    | [| "turn-into-library" |] -> turnIntoLibrary()
-    | [| "turn-into-exe" |] -> turnBackIntoExe()
+    | [| "publish" |] -> List.exec [clean; test; publish]
+    | [| "clean" |] -> clean()
+    | [| "test" |] -> List.exec [clean; test]
     | _ -> ()
     0

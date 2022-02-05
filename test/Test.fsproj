@@ -13,7 +13,4 @@
     <ItemGroup>
     <ProjectReference Include="../src/Fable.SimpleJson.Python.fsproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fable.Python" Version="0.16.0" />
-  </ItemGroup>
 </Project>

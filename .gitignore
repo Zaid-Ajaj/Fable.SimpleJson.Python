@@ -3,3 +3,5 @@ bin
 obj
 output
 __pycache__
+.fake
+.ionide

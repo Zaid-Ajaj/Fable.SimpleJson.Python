@@ -17,3 +17,11 @@ let fruitJson = Json.serialize { name = "Orange" }
 
 let parsedFruit = Json.parseNativeAs<Fruit> fruitJson
 ```
+
+### Build tasks in the repository
+```
+cd build
+dotnet run -- clean
+dotnet run -- test
+dotnet run -- publish
+```
