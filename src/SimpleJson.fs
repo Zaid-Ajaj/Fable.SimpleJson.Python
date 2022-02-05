@@ -1,8 +1,9 @@
 namespace Fable.SimpleJson.Python
 
+open System
+
 open Fable.Core
 open Fable.Import
-open System
 open Fable.Python.Json
 
 module InteropUtil =
@@ -14,10 +15,10 @@ module InteropUtil =
         | _ -> false
 
     [<Emit("print($0)")>]
-    let log (x: 'a) : unit = jsNative
+    let log (x: 'a) : unit = nativeOnly
 
     [<Emit "{}">]
-    let createEmptyObject() : obj = jsNative
+    let createEmptyObject() : obj = nativeOnly
 
 module SimpleJson =
     /// Stringifies a Json object back to string representation
