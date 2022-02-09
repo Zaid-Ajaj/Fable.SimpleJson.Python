@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fable.SimpleJson.Python", "src\Fable.SimpleJson.Python.fsproj", "{63BBA95D-9088-412D-8D1C-D5E6572AB8E0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Test", "test\Test.fsproj", "{770578B1-136C-4CE4-8696-E9912231B9A9}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "build", "build\build.fsproj", "{026074B9-B92A-49BE-A87B-95E64668D08B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63BBA95D-9088-412D-8D1C-D5E6572AB8E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63BBA95D-9088-412D-8D1C-D5E6572AB8E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63BBA95D-9088-412D-8D1C-D5E6572AB8E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63BBA95D-9088-412D-8D1C-D5E6572AB8E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{770578B1-136C-4CE4-8696-E9912231B9A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{770578B1-136C-4CE4-8696-E9912231B9A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{770578B1-136C-4CE4-8696-E9912231B9A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{770578B1-136C-4CE4-8696-E9912231B9A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{026074B9-B92A-49BE-A87B-95E64668D08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{026074B9-B92A-49BE-A87B-95E64668D08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{026074B9-B92A-49BE-A87B-95E64668D08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{026074B9-B92A-49BE-A87B-95E64668D08B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

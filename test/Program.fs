@@ -139,3 +139,15 @@ testCase "decimal equality works" <| fun () ->
     let values = [1m; 2m; 3m]
     let sum = List.sum values
     if sum <> 6m then failwith "Sum of decimals should be 6"
+
+testCase "Generic record of bool roundtrip works" <| fun () ->
+    let input : GenericRecord<bool> list = [ { value = true } ]
+    let inputJson = Json.serialize input
+    let output = Json.parseNativeAs<GenericRecord<bool> list>(inputJson)
+    if output <> input then failwith "input and output should be the same"
+
+testCase "Generic record of uri roundtrip works" <| fun () ->
+    let input : GenericRecord<Uri> = { value = Uri("http://localhost:8080/") }
+    let inputJson = Json.serialize input
+    let output = Json.parseNativeAs<GenericRecord<Uri>>(inputJson)
+    if input.value.ToString() <> output.value.ToString() then failwith "input and output should be the same"

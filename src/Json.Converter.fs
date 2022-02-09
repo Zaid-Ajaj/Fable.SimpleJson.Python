@@ -153,6 +153,8 @@ module Convert =
         // decimals
         | JString value, TypeInfo.Decimal -> unbox (decimal value)
         | JNumber value, TypeInfo.Decimal -> unbox (decimal value)
+        // uri
+        | JString value, TypeInfo.Uri -> unbox(Uri(value))
         | JString value, TypeInfo.Short -> unbox (int16 value)
         | JNumber value, TypeInfo.Short -> unbox (int16 value)
         // Unsigned integers
@@ -648,6 +650,7 @@ module Convert =
         | TypeInfo.Decimal -> betweenQuotes (string (unbox<decimal> value))
         | TypeInfo.Bool -> if unbox<bool> value then "true" else "false"
         | TypeInfo.Guid -> betweenQuotes ((unbox<Guid> value).ToString())
+        | TypeInfo.Uri -> betweenQuotes ((unbox<Uri> value).ToString())
         | TypeInfo.DateTime -> betweenQuotes ((unbox<DateTime> value).ToString("O"))
         | TypeInfo.DateTimeOffset -> betweenQuotes ((unbox<DateTimeOffset> value).ToString("O"))
         | TypeInfo.Record getFields ->

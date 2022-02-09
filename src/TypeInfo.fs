@@ -40,6 +40,7 @@ type TypeInfo =
     | TimeSpan
     | Guid
     | Object
+    | Uri
     | Any of (unit -> Type)
     | Async of (unit -> TypeInfo)
     | Promise of (unit -> TypeInfo)

@@ -45,8 +45,8 @@ module SimpleJson =
     let rec internal parseNative' (x: obj) =
         match x with
         | TypeCheck.NativeString str -> JString str
-        | TypeCheck.NativeNumber number -> JNumber number
         | TypeCheck.NativeBool value -> JBool value
+        | TypeCheck.NativeNumber number -> JNumber number
         | TypeCheck.Null _ -> JNull
         | TypeCheck.NativeArray arr -> JArray (List.ofArray (Array.map parseNative' arr))
         | TypeCheck.NativeObject object ->
