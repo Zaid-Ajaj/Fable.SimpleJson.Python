@@ -22,6 +22,6 @@
     <Content Include="*.fsproj; *.fs" Exclude="Program.fs" PackagePath="fable\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Python" Version="0.17.0" />
+    <PackageReference Include="Fable.Python" Version="0.20.0" />
   </ItemGroup>
 </Project>

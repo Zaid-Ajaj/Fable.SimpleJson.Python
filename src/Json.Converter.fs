@@ -141,7 +141,7 @@ module Convert =
         | JString value, TypeInfo.Float32 when value.ToLower() = "nan" -> unbox (Double.NaN)
         | JString value, TypeInfo.Float32 -> unbox (float32 value)
         // reading number as int -> floor it
-        | JNumber value, TypeInfo.Int32 -> unbox (JS.Math.floor(value))
+        | JNumber value, TypeInfo.Int32 -> unbox (Math.Floor(value))
         | JBool value, TypeInfo.Bool -> unbox value
         // reading int from string -> parse it
         | JString value, TypeInfo.Int32 -> unbox (int value)
@@ -165,7 +165,7 @@ module Convert =
         | JString value, TypeInfo.UInt32 -> unbox (uint32 value)
         | JNumber value, TypeInfo.UInt64 -> unbox (uint64 value)
         | JString value, TypeInfo.UInt64 -> unbox (uint64 value)
-        | JNumber value, TypeInfo.TimeSpan -> unbox (JS.Math.floor value)
+        | JNumber value, TypeInfo.TimeSpan -> unbox (Math.Floor value)
         | JString value, TypeInfo.Enum getlElemType ->
             let (underlyingType, originalType) = getlElemType()
             match underlyingType with
