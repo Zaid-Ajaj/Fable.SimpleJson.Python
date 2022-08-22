@@ -3,7 +3,6 @@ namespace Fable.SimpleJson.Python
 open System
 
 open Fable.Core
-open Fable.Import
 open Fable.Python.Json
 
 module InteropUtil =

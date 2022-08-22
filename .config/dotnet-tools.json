@@ -2,10 +2,10 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "fable-py": {
-      "version": "4.0.0-alpha-032",
+    "fable": {
+      "version": "4.0.0-snake-island-alpha-021",
       "commands": [
-        "fable-py"
+        "fable"
       ]
     }
   }

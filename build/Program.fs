@@ -5,7 +5,7 @@ open Fake.IO
 open Fake.Core
 open System.Xml
 
-module List = 
+module List =
     let exec xs = List.iter (fun task -> task()) xs
 
 
@@ -54,7 +54,7 @@ let cleanDirectories() = Shell.deleteDirs [
     path [ tests; "obj" ]
 ]
 
-let cleanPythonFiles() = 
+let cleanPythonFiles() =
     let srcPythonFiles = System.IO.Directory.GetFiles(src, "*.py")
     let testPythonFiles = System.IO.Directory.GetFiles(tests, "*.py")
     Array.iter Shell.rm srcPythonFiles
@@ -62,8 +62,8 @@ let cleanPythonFiles() =
 
 let clean() = List.exec [cleanDirectories; cleanPythonFiles]
 
-let test() = 
-    dotnet "fable-py" tests "Compiling the tests project to Python failed"
+let test() =
+    dotnet "fable --lang py" tests "Compiling the tests project to Python failed"
     python "program.py" tests "Running the tests failed"
 
 [<EntryPoint>]
