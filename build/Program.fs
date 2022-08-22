@@ -21,7 +21,7 @@ let dotnet args dir msg =
     then failwith msg
 
 let python args dir msg =
-    if Shell.Exec("python", args, dir) <> 0
+    if Shell.Exec("python3", args, dir) <> 0
     then failwith msg
 
 let publish() =
@@ -68,6 +68,8 @@ let test() =
 
 [<EntryPoint>]
 let main argv =
+    dotnet "tool restore" solutionRoot "Restoring dotnet tools failed"
+
     match argv with
     | [| "publish" |] -> List.exec [clean; test; publish]
     | [| "clean" |] -> clean()

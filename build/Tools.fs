@@ -56,4 +56,3 @@ let executablePath (tool: string) =
 let dotnet = executablePath "dotnet"
 let npm = executablePath "npm"
 let node = executablePath "node"
-let python = executablePath "python"
