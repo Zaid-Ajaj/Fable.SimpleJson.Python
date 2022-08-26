@@ -6,7 +6,7 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Fable.SimpleJson.Python/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;json;parser;python</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -23,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.Python" Version="0.20.0" />
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 </Project>

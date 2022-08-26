@@ -21,7 +21,7 @@ let dotnet args dir msg =
     then failwith msg
 
 let python args dir msg =
-    if Shell.Exec("python3", args, dir) <> 0
+    if Shell.Exec(Tools.python, args, dir) <> 0
     then failwith msg
 
 let publish() =
