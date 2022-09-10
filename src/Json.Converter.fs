@@ -389,8 +389,8 @@ module Convert =
                         FSharpValue.MakeUnion(caseInfo, parsedValues)
                         |> unbox
             | otherwise ->
-                let unexpectedJson = JS.JSON.stringify otherwise
-                let expectedType = JS.JSON.stringify cases
+                let unexpectedJson = json.dumps otherwise
+                let expectedType = json.dumps cases
                 failwithf "Expected JSON:\n%s\nto match the type\n%s" unexpectedJson expectedType
         // Arrays
         | JArray values, TypeInfo.Array elementTypeDelayed ->
@@ -614,7 +614,7 @@ module Convert =
             let unknownType = getType()
             failwithf "Cannot convert %s to %s" (SimpleJson.toString input) unknownType.FullName
         | _ ->
-            failwithf "Cannot convert %s to %s" (SimpleJson.toString input) (JS.JSON.stringify typeInfo)
+            failwithf "Cannot convert %s to %s" (SimpleJson.toString input) (string typeInfo)
 
     let fromJson<'t> json typeInfo =
         unbox<'t> (fromJsonAs json typeInfo)

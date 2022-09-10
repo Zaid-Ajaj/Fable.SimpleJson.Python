@@ -63,7 +63,7 @@ module SimpleJson =
         try Some (parseNative input)
         with | ex -> None
 
-    /// Tries to convert an object literal to the Json by calling JSON.stringify on the object first
+    /// Tries to convert an object literal to the Json by calling json.dumps on the object first
     let fromObjectLiteral (x: 'a) =
         try Some (parseNative' x)
         with | _ -> None
