@@ -6,8 +6,8 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Fable.SimpleJson.Python/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;json;parser;python</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.5.0</Version>
-    <PackageReleaseNotes>Update Fable.Python to v0.22.0</PackageReleaseNotes>
+    <Version>1.6.0</Version>
+    <PackageReleaseNotes>Use Python JSON serializer to show error when deserialization fails</PackageReleaseNotes>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
