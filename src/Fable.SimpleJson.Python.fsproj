@@ -23,7 +23,7 @@
     <Content Include="*.fsproj; *.fs" PackagePath="fable\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Python" Version="0.22.0" />
+    <PackageReference Include="Fable.Python" Version="4.0.0-theta-*" />
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 </Project>
