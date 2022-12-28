@@ -6,9 +6,9 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Fable.SimpleJson.Python/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;json;parser;python</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.6.0</Version>
-    <PackageReleaseNotes>Use Python JSON serializer to show error when deserialization fails</PackageReleaseNotes>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>Update dependencies and target net6.0</PackageReleaseNotes>
+    <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -23,7 +23,7 @@
     <Content Include="*.fsproj; *.fs" PackagePath="fable\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Python" Version="4.0.0-theta-*" />
+    <PackageReference Include="Fable.Python" Version="4.0.0-theta-004" />
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 </Project>

@@ -40,7 +40,7 @@ let publish() =
         |> Seq.head
         |> Path.GetFullPath
 
-    dotnet (sprintf "nuget push %s -s nuget.org -k %s" nugetPath nugetKey) src "Pushing the library to nuget failed"
+    dotnet (sprintf "nuget push %s -s https://api.nuget.org/v3/index.json -k %s" nugetPath nugetKey) src "Pushing the library to nuget failed"
 
 let cleanDirectories() = Shell.deleteDirs [
     path [ src; "obj" ]
